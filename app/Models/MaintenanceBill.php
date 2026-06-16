@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use NumberToWords\NumberToWords;
 
 class MaintenanceBill extends Model
 {
@@ -63,17 +64,35 @@ class MaintenanceBill extends Model
             $this->total_paid - $this->grand_total
         );
     }
-    
-    public function getAmountInWordsAttribute()
-    {
-        // later convert 6166
-        // to
-        // SIX THOUSAND ONE HUNDRED SIXTY SIX ONLY
-    }
 
     public function getBillPeriodAttribute()
     {
-        return "1-JUN-2026 TO 30-JUN-2026";
+        $startDate = Carbon::create(
+            $this->bill_year,
+            $this->bill_month,
+            1
+        );
+
+        $endDate = $startDate->copy()->endOfMonth();
+
+        return
+            strtoupper($startDate->format('d-M-Y'))
+            .' TO '.
+            strtoupper($endDate->format('d-M-Y'));
+    }
+
+    public function getAmountInWordsAttribute()
+    {
+        $numberToWords = new NumberToWords();
+
+        $numberTransformer =
+            $numberToWords->getNumberTransformer('en');
+
+        return strtoupper(
+            $numberTransformer->toWords(
+                round($this->grand_total)
+            )
+        );
     }
 
     public function getBillMonthNameAttribute(){

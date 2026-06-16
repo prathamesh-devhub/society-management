@@ -40,6 +40,9 @@
                 <a href="{{ route('reports.defaulters') }}" class="block p-2 rounded hover:bg-gray-100">Defaulters</a>
         </div>
         <div x-data="{ open: false }">
+                <a href="{{ route('expenses.index') }}" class="block p-2 rounded hover:bg-gray-100">Expenses</a>
+        </div>
+        <div x-data="{ open: false }">
                 <a href="{{ route('settings.show') }}" class="block p-2 rounded hover:bg-gray-100">Settings</a>
         </div>
 

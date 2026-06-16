@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\MaintenanceBillController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\SettingController;
@@ -53,7 +54,6 @@ Route::middleware('auth')->group(function () {
         'maintenance-bills/generate',
         [MaintenanceBillController::class,'generate']
     )->name('maintenance-bills.generate');
-    });
 
     Route::get(
         'maintenance-bills/{maintenanceBill}/print',
@@ -72,5 +72,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('maintenance-bills', MaintenanceBillController::class);
 
+    Route::resource('expenses',ExpenseController::class);
+
+
+});
 
 require __DIR__.'/auth.php';
