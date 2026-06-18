@@ -13,6 +13,9 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\MaintenancePaymentController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use App\Models\MaintenanceBill;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MaintenanceBillMail;
 
 Route::get('/', function () {
     return view('welcome');
@@ -74,6 +77,20 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('expenses',ExpenseController::class);
 
+    Route::get('/test-mail', function () {
+
+        $bill = MaintenanceBill::first();
+
+        Mail::to('yourtestmail@gmail.com')
+            ->send(new MaintenanceBillMail($bill));
+
+        return 'Mail Sent';
+
+    });
+
+    Route::get('maintenance-bills/{maintenanceBill}/email',[MaintenanceBillController::class,'emailBill'])->name('maintenance-bills.email');
+
+    Route::post('maintenance-bills/emailBulk',[MaintenanceBillController::class,'emailBulk'])->name('maintenance-bills.emailBulk');
 
 });
 

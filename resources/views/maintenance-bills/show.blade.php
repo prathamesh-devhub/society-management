@@ -143,6 +143,7 @@
 
         <thead>
             <tr>
+                <th>Receipt No.</th>
                 <th>Date</th>
                 <th>Mode</th>
                 <th>Reference</th>
@@ -155,6 +156,7 @@
         @forelse($maintenanceBill->payments as $payment)
 
             <tr>
+                <td>{{ $payment->receipt_no }}</td>
                 <td>{{ $payment->payment_date }}</td>
                 <td>{{ $payment->payment_mode }}</td>
                 <td>{{ $payment->reference_no }}</td>
@@ -199,6 +201,11 @@
         target="_blank"
         class="bg-indigo-600 text-white px-4 py-2 rounded-lg">
             🖨 Print Bill
+        </a>
+
+        <a href="{{ route('maintenance-bills.email',$maintenanceBill) }}"
+        class="bg-green-600 text-white px-4 py-2 ml-4 rounded-lg">
+            ✉ Email Bill
         </a>
     </div>
 @endsection

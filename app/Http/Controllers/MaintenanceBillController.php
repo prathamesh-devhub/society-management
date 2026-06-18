@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MaintenanceBillMail;
 use App\Models\MaintenanceBill;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Models\Member;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Services\BillPdfService;
 
 class MaintenanceBillController extends Controller
 {
@@ -270,76 +273,44 @@ class MaintenanceBillController extends Controller
         //
     }
 
-    public function billpdf(MaintenanceBill $maintenanceBill)
+    public function billpdf(MaintenanceBill $maintenanceBill,BillPdfService $billPdfService)
     {
-        $settings = Setting::first();
-
-        $periodStart = Carbon::create(
-            $maintenanceBill->bill_year,
-            $maintenanceBill->bill_month,
-            1
-        );
-
-        $periodEnd = $periodStart->copy()->endOfMonth();
-
-        $billPeriodStart = $periodStart->format('d-M-Y');
-        $billPeriodEnd = $periodEnd->format('d-M-Y');
-
-        $totalCurrentCharges = 
-
-        $particulars = [
-            [
-                'name' => 'Contribution for Repair & Maintenance Fund',
-                'amount' => $maintenanceBill->repair_amount
-            ],
-            [
-                'name' => 'Contribution to Sinking Fund',
-                'amount' => $maintenanceBill->sinking_amount
-            ],
-            [
-                'name' => 'Contribution towards Building Fund',
-                'amount' => $maintenanceBill->building_amount
-            ],
-            [
-                'name' => 'Electricity Charges',
-                'amount' => $maintenanceBill->electricity_charge
-            ],
-            [
-                'name' => 'Water Charges',
-                'amount' => $maintenanceBill->water_charge
-            ],
-            [
-                'name' => 'Service Charges',
-                'amount' => $maintenanceBill->service_charge
-            ],
-            [
-                'name' => 'Lift Charges',
-                'amount' => $maintenanceBill->lift_charge
-            ],
-            [
-                'name' => 'Insurance Charges',
-                'amount' => $maintenanceBill->insurance_charge
-            ],
-            [
-                'name' => 'Education Charges',
-                'amount' => $maintenanceBill->education_charge
-            ]
-            
-        ];
-
-        $pdf = Pdf::loadView(
-            'maintenance-bills.billpdf',
-            compact(
-                'maintenanceBill',
-                'settings',
-                'particulars',
-                'billPeriodEnd',
-                'billPeriodStart'
-            )
-        );
-
+        $pdf = $billPdfService->generate($maintenanceBill);
+        
         return $pdf->download(
             $maintenanceBill->bill_no.'.pdf'
         );
+    }
+
+    public function emailBill(MaintenanceBill $maintenanceBill){
+
+        Mail::to($maintenanceBill->member->email)->send(new MaintenanceBillMail($maintenanceBill));
+
+        return back()->with('success','Bill emailed successfully.');
+    }
+
+    public function emailBulk(Request $request,MaintenanceBill $maintenanceBill){
+
+        $bills = MaintenanceBill::where('bill_month',$request->bill_month)->where('bill_year',$request->bill_year)->get();
+
+        if($bills->isEmpty()){
+            return back()->with('error','First generate bills.');
+        }
+
+        $sent = 0;
+        $failed = 0;
+
+        foreach($bills as $bill){
+            try{
+                if(!empty($bill->member->email)){
+                    Mail::to($bill->member->email)->send(new MaintenanceBillMail($bill));
+                }
+                $sent++;
+            }catch(\Exception $e){
+                $failed++;
+            }
+        }
+
+        return back()->with('success', "{$sent} emails sent. {$failed} failed.");
     }
 }

@@ -33,12 +33,12 @@
             margin: 0 0 3px 0;
         }
         .society-reg {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             margin: 0 0 3px 0;
         }
         .society-address {
-            font-size: 11px;
+            font-size: 10px;
             margin: 0 0 5px 0;
         }
         .bill-title {
@@ -117,19 +117,19 @@
         .amount-words {
             font-weight: bold;
             margin-bottom: 15px;
-            padding: 6px;
+            padding: 4px;
             border: 1px solid #000;
             font-size: 12px;
             background-color: #fafafa;
         }
         .notes {
-            font-size: 11px;
+            font-size: 10px;
             color: #000;
             margin-bottom: 10px;
         }
         .notes ol {
             padding-left: 15px;
-            margin: 4px 0;
+            margin: 2px 0;
         }
         .notes li {
             margin-bottom: 3px;
@@ -138,11 +138,11 @@
             margin-top: 8px;
             font-weight: bold;
             border: 1px dashed #000;
-            padding: 6px;
+            padding: 4px;
         }
         .computer-generated-notice {
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             font-style: italic;
             margin-top: 20px;
@@ -167,34 +167,34 @@
 
 <div class="bill-container">
     <div class="header">
-        <div class="society-name">{{ strtoupper($settings->society_name) }}</div> [cite: 1]
-        <div class="society-reg">{{ $settings->registration_no }}</div> [cite: 2]
+        <div class="society-name">{{ strtoupper($settings->society_name) }}</div>
+        <div class="society-reg">{{ $settings->registration_no }}</div> 
         <div class="society-address">
-            Survey No.58, Hissa No.4/1, Survey No.49, Hissa No. 2C & Survey No.57, Hissa No.2, Mauje Pale, Near Jainam Residency, Ambernath (E), Dist-Thane [cite: 2]<br>
-            Email: {{ $settings->email }} [cite: 3]
+            Survey No.58, Hissa No.4/1, Survey No.49, Hissa No. 2C & Survey No.57, Hissa No.2, Mauje Pale, Near Jainam Residency, Ambernath (E), Dist-Thane<br>
+            Email: {{ $settings->email }}
         </div>
         
-        <div class="bill-title">BILL / DEMAND NOTICE</div> [cite: 4]
-        <div class="bill-period">BILL FOR THE PERIOD OF {{ $maintenanceBill->bill_period }}</div> [cite: 5]
+        <div class="bill-title">BILL / DEMAND NOTICE</div> 
+        <div class="bill-period">BILL FOR THE PERIOD OF {{ $maintenanceBill->bill_period }}</div> 
     </div>
 
     <table class="meta-table">
         <tr>
-            <td style="width: 18%;"><strong>{{ $maintenanceBill->member->name }}</strong></td> [cite: 6]
+            <td style="width: 18%;"><strong>{{ $maintenanceBill->member->name }}</strong></td>
             <td style="width: 42%;"></td>
-            <td style="width: 15%;"><strong>BILL NO. :</strong></td> [cite: 7]
+            <td style="width: 15%;"><strong>BILL NO. :</strong></td> 
             <td style="width: 25%;">{{ $maintenanceBill->bill_no }}</td>
         </tr>
         <tr>
-            <td><strong>FLAT NO.:</strong></td> [cite: 8]
+            <td><strong>FLAT NO.:</strong></td> 
             <td>{{ $maintenanceBill->member->flat_number }}</td>
-            <td><strong>BILL DATE:</strong></td> [cite: 9]
+            <td><strong>BILL DATE:</strong></td> 
             <td>{{ $maintenanceBill->bill_date }}</td>
         </tr>
         <tr>
-            <td><strong>AREA(Carpet):</strong></td> [cite: 9]
-            <td>{{ $maintenanceBill->square_feet }} SQ.FEET</td> [cite: 9]
-            <td><strong>DUE DATE:</strong></td> [cite: 9]
+            <td><strong>AREA(Carpet):</strong></td> 
+            <td>{{ $maintenanceBill->square_feet }} SQ.FEET</td> 
+            <td><strong>DUE DATE:</strong></td> 
             <td>{{ $maintenanceBill->due_date }}</td>
         </tr>
     </table>
@@ -202,24 +202,24 @@
     <table class="particulars-table">
         <thead>
             <tr>
-                <th style="width: 75%;">PARTICULARS [cite: 10]</th>
-                <th style="width: 10%;" class="text-center">Sr. [cite: 10]</th>
-                <th style="width: 15%;" class="text-right">AMOUNT [cite: 10]</th>
+                <th style="width: 75%;">PARTICULARS </th>
+                <th style="width: 10%;" class="text-center">Sr. </th>
+                <th style="width: 15%;" class="text-right">AMOUNT </th>
             </tr>
         </thead>
         <tbody>
             @php $sr = 1; @endphp
             @foreach($particulars as $item)
             <tr>
-                <td>{{ $item['name'] }}</td> [cite: 10]
-                <td class="text-center">{{ $sr++ }}</td> [cite: 10]
-                <td class="text-right">{{ number_format($item['amount'], 2) }}</td> [cite: 10]
+                <td>{{ $item['name'] }}</td>
+                <td class="text-center">{{ $sr++ }}</td>
+                <td class="text-right">{{ number_format($item['amount'], 2) }}</td>
             </tr>
             @endforeach
             <tr style="font-weight: bold;">
-                <td>TOTAL</td> [cite: 10]
+                <td>TOTAL</td>
                 <td></td>
-                <td class="text-right">{{ number_format( $maintenanceBill->current_bill_total , 2) }}</td> [cite: 10]
+                <td class="text-right">{{ number_format( $maintenanceBill->current_bill_total , 2) }}</td>
             </tr>
         </tbody>
     </table>
@@ -228,22 +228,22 @@
         <tr>
             <td style="width: 55%;">
                 <div class="arrears-box">
-                    <strong>PRINCIPAL ARREARS:</strong> <br><br> [cite: 11]
-                    <strong>INTEREST ARREARS:</strong>  [cite: 12]
+                    <strong>PRINCIPAL ARREARS:</strong> <br><br>
+                    <strong>INTEREST ARREARS:</strong>
                 </div>
             </td>
             <td style="width: 45%; padding: 0;">
                 <table class="summary-table">
                     <tr>
-                        <td style="width: 60%;"><strong>ADD: INTEREST</strong></td> [cite: 13]
-                        <td style="width: 40%;" class="text-right">{{ number_format( $maintenanceBill->interest_amount , 2) }}</td> [cite: 13]
+                        <td style="width: 60%;"><strong>ADD: INTEREST</strong></td>
+                        <td style="width: 40%;" class="text-right">{{ number_format( $maintenanceBill->interest_amount , 2) }}</td>
                     </tr>
                     <tr>
-                        <td><strong>ARREARS</strong></td> [cite: 13]
-                        <td class="text-right">{{ number_format($maintenanceBill->previous_due, 2) }}</td> [cite: 13]
+                        <td><strong>ARREARS</strong></td>
+                        <td class="text-right">{{ number_format($maintenanceBill->previous_due, 2) }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Less: ADVANCE</strong></td> [cite: 13]
+                        <td><strong>Less: ADVANCE</strong></td>
                         <td class="text-right">
                             @if($maintenanceBill->advance_amount > 0)
                                 {{ number_format( $maintenanceBill->advance_amount , 2) }}
@@ -251,8 +251,8 @@
                         </td>
                     </tr>
                     <tr style="font-weight: bold; background-color: #f2f2f2;">
-                        <td>GRAND TOTAL</td> [cite: 13]
-                        <td class="text-right">{{ number_format( $maintenanceBill->grand_total , 2) }}</td> [cite: 13]
+                        <td>GRAND TOTAL</td>
+                        <td class="text-right">{{ number_format( $maintenanceBill->grand_total , 2) }}</td>
                     </tr>
                 </table>
             </td>
@@ -260,29 +260,78 @@
     </table>
 
     <div class="amount-words">
-        Amount in Words: Rs. {{ $maintenanceBill->amount_in_words }} ONLY. [cite: 15]
+        Amount in Words: Rs. {{ $maintenanceBill->amount_in_words }} ONLY.
     </div>
 
     <div class="notes">
         <strong>NOTE:</strong><br>
         <ol>
-            <li>Payment should be made in favour of PATELS SIGNATURE TYPE-A CHS LTD & A/c PAYEE ONLY. [cite: 16]</li>
-            <li>Payment must be made on or before due date of every month. No post dated cheques are accepted. [cite: 17]</li>
-            <li>Members are requested to write their Name, Flat No. & Mobile No. on the reverse of the Cheque or any mode of Payment. [cite: 18]</li>
-            <li>If you or your tenant make a transaction through NEFT / Google pay / No broker or any other mode kindly send Screenshot to office number "+91 89562 85467" [cite: 19]</li>
-            <li>For any query or complaint kindly contact society manager or drop a " patelsignature2022@gmail.com" [cite: 20]</li>
-            <li>Please inform to society office in case of any discrepancy in this bill within 7 days [cite: 21]</li>
+            <li>Payment should be made in favour of PATELS SIGNATURE TYPE-A CHS LTD & A/c PAYEE ONLY.</li>
+            <li>Payment must be made on or before due date of every month. No post dated cheques are accepted. </li>
+            <li>Members are requested to write their Name, Flat No. & Mobile No. on the reverse of the Cheque or any mode of Payment. </li>
+            <li>If you or your tenant make a transaction through NEFT / Google pay / No broker or any other mode kindly send Screenshot to office number "+91 89562 85467" </li>
+            <li>For any query or complaint kindly contact society manager or drop a "patelsignature2022@gmail.com" </li>
+            <li>Please inform to society office in case of any discrepancy in this bill within 7 days </li>
         </ol>
         
         <div class="bank-details">
-            Bank & Branch: SARASWAT CO-OP BANK, AMBERNATH (Ε)<br> [cite: 22]
-            A/c No. : 510000000169167 IFS Code: SRCB0000411 [cite: 22]
+            Bank & Branch: SARASWAT CO-OP BANK, AMBERNATH (E)<br> 
+            A/c No. : 510000000169167 IFS Code: SRCB0000411 
         </div>
-        <div style="margin-top: 4px; font-size: 11px;">Ε.& Ο.Ε.</div> [cite: 14]
+        <div style="margin-top: 2px; font-size: 10px;">E.& O.E.</div> 
     </div>
 
+    <!-- ===================================================================== -->
+    <!-- EXACT GRID RECEIPT SLIP SECTION (As referenced in 601.pdf / 104.pdf)   -->
+    <!-- ===================================================================== -->
+    <div class="receipt-separator">
+        <span>Tear off Receipt / Acknowledgement Slip</span>
+    </div>
+
+    <table class="receipt-table">
+        <tr class="receipt-header-row text-center">
+            <td colspan="5" style="text-align: center;"><strong>PATELS SIGNATURE TYPE-A CHS LTD - PAYMENT RECEIPTS</strong></td>
+        </tr>
+        <thead>
+            <tr style="background-color: #f2f2f2; font-weight: bold;">
+                <th style="width: 20%; border: 1px solid #000; padding: 5px; text-align: left;">Receipt No.</th>
+                <th style="width: 15%; border: 1px solid #000; padding: 5px; text-align: left;">Date</th>
+                <th style="width: 15%; border: 1px solid #000; padding: 5px; text-align: left;">Mode</th>
+                <th style="width: 30%; border: 1px solid #000; padding: 5px; text-align: left;">Reference / Bank</th>
+                <th style="width: 20%; border: 1px solid #000; padding: 5px; text-align: right;">Amount (Rs.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $totalPaid = 0; @endphp
+            @forelse($maintenanceBill->payments as $payment)
+                @php $totalPaid += $payment->amount; @endphp
+                <tr>
+                    <td style="border: 1px solid #000; padding: 4px 10px;">{{ $payment->receipt_no }}</td>
+                    <td style="border: 1px solid #000; padding: 4px 10px;">{{ $payment->payment_date }}</td>
+                    <td style="border: 1px solid #000; padding: 4px 10px;">{{ $payment->payment_mode }}</td>
+                    <td style="border: 1px solid #000; padding: 4px 10px;">{{ $payment->reference_no }}</td>
+                    <td style="border: 1px solid #000; padding: 4px 10px;" class="text-right">{{ number_format($payment->amount, 2) }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" style="border: 1px solid #000; padding: 10px; text-align: center; font-style: italic;">
+                        No Payments Recorded
+                    </td>
+                </tr>
+            @endforelse
+
+            @if($maintenanceBill->payments->isNotEmpty())
+                <tr style="font-weight: bold; background-color: #fafafa;">
+                    <td colspan="4" class="text-right" style="border: 1px solid #000; padding: 4px 10px;">TOTAL AMOUNT RECEIVED:</td>
+                    <td class="text-right" style="border: 1px solid #000; padding: 4px 10px;">Rs. {{ number_format($totalPaid, 2) }}</td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+
+    <!-- Computer Generated Non-Signatory Notice -->
     <div class="computer-generated-notice">
-        This is a computer-generated document. No physical signature is required. 
+        This is a computer-generated receipt acknowledgment. No physical signature is required.
     </div>
 </div>
 

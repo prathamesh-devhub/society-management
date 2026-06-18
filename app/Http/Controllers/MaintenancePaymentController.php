@@ -19,9 +19,42 @@ class MaintenancePaymentController extends Controller
             'amount' => 'required',
             'payment_mode' => 'required|string',
             'reference_no' => 'nullable',
-            'remarks' => 'nullable'
+            'remarks' => 'nullable',
+            'receipt_no' => 'nullable'
         ]);
 
+        $currentYear = now()->year;
+
+        if(now()->month >= 4){
+            $startYear = substr($currentYear, -2);
+            $endYear = substr($currentYear + 1, -2);
+        }
+        else{
+            $startYear = substr($currentYear - 1, -2);
+            $endYear = substr($currentYear, -2);
+        }
+
+        $lastReceipt = MaintenancePayment::latest('id')->first();
+
+        $nextNumber = $lastReceipt
+            ? $lastReceipt->id + 1
+            : 1;
+
+        $receiptNo =
+            'PSR/' .
+            $startYear .
+            '-' .
+            $endYear .
+            '/' .
+            str_pad(
+                $nextNumber,
+                3,
+                '0',
+                STR_PAD_LEFT
+            );
+
+        $data['receipt_no'] = $receiptNo;
+        
         $data['maintenance_bill_id'] = $maintenanceBill->id;
 
         $maintenance = MaintenancePayment::create($data);

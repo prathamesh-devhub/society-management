@@ -11,6 +11,12 @@
             Manage and track maintenance bills
         </p>
     </div>
+        
+    <a href="{{ route('maintenance-bills.generate') }}"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            + Generate Bills
+        </a>
+    
 </div>
 
 <div class="bg-gray-50 border rounded-lg p-4 mb-6">
