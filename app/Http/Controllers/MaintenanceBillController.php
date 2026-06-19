@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMaintenanceBillJob;
 use App\Mail\MaintenanceBillMail;
 use App\Models\MaintenanceBill;
 use Illuminate\Http\Request;
@@ -300,10 +301,10 @@ class MaintenanceBillController extends Controller
         $sent = 0;
         $failed = 0;
 
-        foreach($bills as $bill){
+        foreach($bills->take(1) as $bill){
             try{
                 if(!empty($bill->member->email)){
-                    Mail::to($bill->member->email)->send(new MaintenanceBillMail($bill));
+                    SendMaintenanceBillJob::dispatch($bill);
                 }
                 $sent++;
             }catch(\Exception $e){
